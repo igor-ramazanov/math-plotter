@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nefu.compilerstheory.view.Controller">
+<AnchorPane prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.nefu.compilerstheory.ViewController">
     <children>
         <TextField fx:id="input" layoutX="126.0" layoutY="549.0" prefHeight="27.0" prefWidth="407.0" />
         <Label layoutX="64.0" layoutY="554.0" text="f(x)" />
@@ -59,7 +59,7 @@
             <Font size="11.0" />
          </font>
       </TextField>
-      <LineChart fx:id="chart" animated="false" createSymbols="false" layoutX="93.0" layoutY="51.0" prefHeight="466.0" prefWidth="1070.0" title="График функции">
+      <LineChart fx:id="chart" animated="false" createSymbols="false" layoutX="93.0" layoutY="51.0" prefHeight="466.0" prefWidth="1070.0" title="Function's plot">
         <xAxis>
           <NumberAxis side="BOTTOM" fx:id="xAxis"/>
         </xAxis>

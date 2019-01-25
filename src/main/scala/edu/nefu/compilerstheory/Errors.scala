@@ -1,4 +1,4 @@
-package com.nefu.compilerstheory.error
+package edu.nefu.compilerstheory
 
 /**
   * Created by igorramazanov on 09/05/2017.

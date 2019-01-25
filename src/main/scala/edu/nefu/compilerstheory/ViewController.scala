@@ -1,8 +1,4 @@
-package com.nefu.compilerstheory.view
-
-import com.nefu.compilerstheory.calculator.Calculator
-import com.nefu.compilerstheory.lexer.MathLexer
-import com.nefu.compilerstheory.parser.MathParser
+package edu.nefu.compilerstheory
 
 import scalafx.scene.chart.{LineChart, NumberAxis, XYChart}
 import scalafx.scene.control.{Slider, TextField}
@@ -12,22 +8,22 @@ import scalafxml.core.macros.sfxml
   * Created by igorramazanov on 12/05/2017.
   */
 @sfxml
-class Controller(private val chart: LineChart[Double, Double],
-                 private val input: TextField,
-                 private val minXmin: TextField,
-                 private val minXmax: TextField,
-                 private val maxXmin: TextField,
-                 private val maxXmax: TextField,
-                 private val stepMin: TextField,
-                 private val stepMax: TextField,
-                 private val minX: Slider,
-                 private val maxX: Slider,
-                 private val step: Slider,
-                 private val minY: TextField,
-                 private val maxY: TextField,
-                 private val yAxisSlider: Slider,
-                 private val xAxis: NumberAxis,
-                 private val yAxis: NumberAxis
+class ViewController(private val chart: LineChart[Double, Double],
+                     private val input: TextField,
+                     private val minXmin: TextField,
+                     private val minXmax: TextField,
+                     private val maxXmin: TextField,
+                     private val maxXmax: TextField,
+                     private val stepMin: TextField,
+                     private val stepMax: TextField,
+                     private val minX: Slider,
+                     private val maxX: Slider,
+                     private val step: Slider,
+                     private val minY: TextField,
+                     private val maxY: TextField,
+                     private val yAxisSlider: Slider,
+                     private val xAxis: NumberAxis,
+                     private val yAxis: NumberAxis
                 ) {
 
   input.text.onChange(draw())
@@ -43,23 +39,23 @@ class Controller(private val chart: LineChart[Double, Double],
   def draw(mathExpression: String, minX: Double, maxX: Double, step: Double): Unit = {
     if (mathExpression.nonEmpty) {
       for {
-        tokens <- MathLexer(mathExpression).right
-        ast <- MathParser(tokens).right
-        points = Calculator.calculate(minX, maxX, step, ast)
-      } {
-        val series = new XYChart.Series[Double, Double] {
-          name = "f(x)"
-          data_=(points.map(p => XYChart.Data(p.x, p.y)).toSeq)
-        }
-
-        xAxis.setLowerBound(minX)
-        xAxis.setUpperBound(maxX)
-        xAxis.setTickUnit((maxX - minX) / 20)
-
-        updateYAxis()
-
-        chart.data_=(series)
+      tokens <- Lexer(mathExpression)
+      ast <- Parser(tokens)
+      points = Interpreter.interpret(minX, maxX, step, ast)
+    } {
+      val series = new XYChart.Series[Double, Double] {
+        name = "f(x)"
+        data_=(points.map(p => XYChart.Data(p.x, p.y)).toSeq)
       }
+
+      xAxis.setLowerBound(minX)
+      xAxis.setUpperBound(maxX)
+      xAxis.setTickUnit((maxX - minX) / 20)
+
+      updateYAxis()
+
+      chart.data_=(series)
+    }
     }
   }
 

@@ -1,7 +1,5 @@
-package com.nefu.compilerstheory.lexer
-
-import com.nefu.compilerstheory.error.{CompilationError, LexerError}
-import com.nefu.compilerstheory.token._
+package edu.nefu.compilerstheory
+import edu.nefu.compilerstheory.tokens._
 
 import scala.util.matching.Regex
 import scala.util.parsing.combinator.RegexParsers
@@ -9,19 +7,19 @@ import scala.util.parsing.combinator.RegexParsers
 /**
   * Created by igorramazanov on 09/05/2017.
   */
-object MathLexer extends RegexParsers {
+object Lexer extends RegexParsers {
   override def skipWhitespace = true
 
   override val whiteSpace: Regex = "[ \t\r\f]+".r
 
-  def apply(mathExpression: String): Either[CompilationError, List[MathToken]] = {
+  def apply(mathExpression: String): Either[CompilationError, List[Token]] = {
     parse(tokens, mathExpression) match {
       case NoSuccess(msg, _) => Left(LexerError(msg))
       case Success(result, _) => Right(result)
     }
   }
 
-  def tokens: Parser[List[MathToken]] = {
+  def tokens: Parser[List[Token]] = {
     phrase(rep(lBrace | rBrace | sqrt | sin | cos | tg | ctg | arctg | arcctg | arcsin | arccos | ln | abs | pi | e | constant | pow | mul | add | sub | div | x))
   }
 

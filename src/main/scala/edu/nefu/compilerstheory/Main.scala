@@ -1,14 +1,15 @@
-package com.nefu.compilerstheory
-
+package edu.nefu.compilerstheory
 import java.io.IOException
+import java.net.URL
+
 import scalafx.Includes._
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
-import scalafxml.core.{NoDependencyResolver, FXMLView}
+import scalafxml.core.{FXMLView, NoDependencyResolver}
 
-object Bootloader extends JFXApp {
-  val resource = getClass.getResource("view/view.fxml")
+object Main extends JFXApp {
+  val resource: URL = getClass.getResource("/view/view.fxml")
   if (resource == null) {
     throw new IOException("Cannot load resource: view.fxml")
   }
@@ -16,7 +17,7 @@ object Bootloader extends JFXApp {
   val root = FXMLView(resource, NoDependencyResolver)
 
   stage = new PrimaryStage() {
-    title = "Мат. выражения, ИВТ-14 Рамазанов Игорь"
+    title = "Math expressions plotter"
     scene = new Scene(root)
   }
 }
